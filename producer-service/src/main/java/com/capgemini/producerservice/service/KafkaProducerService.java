@@ -1,5 +1,6 @@
-package com.capgemini.producerservice.model;
+package com.capgemini.producerservice.service;
 
+import com.capgemini.producerservice.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,11 @@ public class KafkaProducerService {
         this.objectMapper = objectMapper;
     }
 
-    public void sendMessage(User user) {
+    public void sendMessage(User user, String eventType) {
         try {
             Map<String, Object> event = new HashMap<>();
-            event.put("user", user.toString());
-            event.put("event_type", "user");
+            event.put("user", objectMapper.writeValueAsString(user));
+            event.put("event_type",eventType);
             event.put("timestamp", System.currentTimeMillis());
             String jsonMessage = objectMapper.writeValueAsString(event);
             kafkaTemplate.send(TOPIC, jsonMessage);

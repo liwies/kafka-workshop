@@ -109,6 +109,17 @@ services:
     ports:
       - "8084:8084"
 
+  consumer-service:
+    image: consumer-service:latest
+    ports:
+      - "8085:8085"
+
+  streams-service:
+    image: streams-service:latest
+    ports:
+      - "8086:8086"
+      - "5005:5005"
+
   kafka1:
     image: confluentinc/cp-kafka:7.2.1
     hostname: kafka1

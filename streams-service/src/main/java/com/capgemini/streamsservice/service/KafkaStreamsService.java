@@ -1,15 +1,24 @@
-package com.capgemini.streamsservice.model;
+package com.capgemini.streamsservice.service;
 
+import com.capgemini.streamsservice.model.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Produced;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
-import org.springframework.stereotype.Service;
+import org.springframework.kafka.config.KafkaStreamsConfiguration;
 
-@Service
+import java.util.Map;
+
+@Configuration
 @EnableKafkaStreams
 public class KafkaStreamsService {
 
@@ -19,16 +28,27 @@ public class KafkaStreamsService {
         this.objectMapper = objectMapper;
     }
 
+//    @Bean
+//    public KStreamBuilderCustomizer  customizer() {
+//        return kStreamBuilder -> {
+//            KStream<String, String> stream = kStreamBuilder.stream("input-topic");
+//            stream.to("output-topic");
+//        };
+//    }
+
     @Bean
     public KStream<String, String> processUserEvents(StreamsBuilder builder) {
+        System.out.println("Starting steaming....");
         // 1.  Consume from the 'user-events' topic.
-        KStream<String, String> userEventsStream = builder.stream("user-events");
+        KStream<String, String> userEventsStream = builder.stream("user-events",  Consumed.with(Serdes.String(), Serdes.String()));
 
         // 2.  Parse the JSON value and extract fields.
         KStream<String, String> parsedStream = userEventsStream.map((key, value) -> {
             try {
+                System.out.println("value: " + value);
                 JsonNode jsonNode = objectMapper.readTree(value);
-                String userId = jsonNode.get("user_id").asText();
+                User user = objectMapper.readValue(jsonNode.get("user").asText(), User.class);
+                String userId = user.id();
                 String eventType = jsonNode.get("event_type").asText();
                 long timestamp = jsonNode.get("timestamp").asLong();
                 String newValue = String.format("{\"user_id\":\"%s\",\"event_type\":\"%s\",\"timestamp\":%d}", userId, eventType, timestamp);
@@ -43,7 +63,7 @@ public class KafkaStreamsService {
         KStream<String, String> loginEventsStream = parsedStream.filter((key, value) -> value.contains("\"event_type\":\"login\""));
 
         // 4.  Send the filtered login events to a new topic.
-        loginEventsStream.to("login-events");
+        loginEventsStream.to("login-events",  Produced.with(Serdes.String(), Serdes.String()));
 
         // 5.  Print some events to the console (for demonstration).
         loginEventsStream.foreach((key, value) -> System.out.println("Kafka Streams - Login Event: Key=" + key + ", Value=" + value));

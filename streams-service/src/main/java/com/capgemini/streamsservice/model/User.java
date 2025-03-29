@@ -1,6 +1,6 @@
-package com.capgemini.producerservice.model;
+package com.capgemini.streamsservice.model;
 
-public record User (
+public record User(
         String id,
         String firstName,
         String lastName,

@@ -28,8 +28,23 @@ Steps
 13. Create the producer container running the below:
     14. mvm clean package
     15. Run: 'docker build -t producer-service .' to build the docker image
-    16. Run: 'docker run -p 8084:8084 producer-service' or run producer-service from docker-compose
+    16. Run producer-service from docker-compose
 17. Goto docker-compose.yml and run 
 18. Goto ksqldb-script and copy & paste the following:
     14. Create a stream from the Kafka topic, defining the schema. --> This created our streams
     15. Create a new stream that filters events. --> This filters our stream for certain events
+13. Create the consumer container running the below:
+    14. mvn clean package -DskipTests
+    15. Run: 'docker build -t consumer-service .' to build the docker image
+    16. Run consumer-service from docker-compose
+
+13. Create the streams container running the below:
+    14. mvn clean package -DskipTests
+    15. Run: 'docker build -t streams-service .' to build the docker image
+    16. Run streams-service from docker-compose
+
+
+
+
+Trouble shooting
+Fatal error compiling: error: release version 17 not supported --> Ensure your JAVA_HOME is set to 17
