@@ -2,10 +2,7 @@ spring:
   kafka:
     consumer:
       bootstrap-servers: kafka0:9092
+      auto-offset-reset: earliest
+      group-id: consumer-service-group
 server:
   port: 8085
-logging:
-  level:
-    org:
-      apache:
-        kafka=DEBUG:

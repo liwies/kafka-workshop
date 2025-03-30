@@ -3,11 +3,6 @@ spring:
     streams:
       bootstrap-servers: kafka0:9092
       application-id: streams-service
-      default:
-        key:
-          serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-        value:
-          serde: org.apache.kafka.common.serialization.Serdes$StringSerde
   application:
     name: streams-service
 

@@ -25,6 +25,6 @@ public class KafkaProducerController {
         kafkaProducerService.sendMessage(user, eventType);
         System.out.println("Received user: " + user);
         System.out.println("Received event type: " + eventType);
-        return user; // Returns the user
+        return user;
     }
 }

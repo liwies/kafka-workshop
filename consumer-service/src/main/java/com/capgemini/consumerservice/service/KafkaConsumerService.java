@@ -18,7 +18,7 @@ public class KafkaConsumerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumerService.class);
 
-    @KafkaListener(topics = "user-events", groupId = "my-group")
+    @KafkaListener(topics = "user-events")
     public void consume(ConsumerRecord<String, String> record) {
         LOGGER.info(String.format("Consumed message: %s", record.value()));
         LOGGER.info(String.format("Partition: %s", record.partition()));
@@ -26,12 +26,10 @@ public class KafkaConsumerService {
         LOGGER.info(String.format("Key: %s", record.key()));
 
         // Process the consumed message here.
-        // For example, save it to a database, perform some calculations, etc.
         try {
             processMessage(record.value());
         } catch (Exception e) {
             LOGGER.error("Error processing message", e);
-            // Handle the error appropriately (e.g., retry, send to a dead-letter queue).
         }
     }
 

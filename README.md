@@ -1,50 +1,69 @@
 # kafka-workshop
 Kafka, Spring Boot and the Art of Stream Processing
 
-NOTE: Connect to the capgemini network for dependencies download
-NOTE: Maybe override the settings.xml file
-NOTE: choose application.properties vs application.yaml
+1.  **Prerequisite:** Run `docker-compose up kafka-ui` from a terminal within the `kafka-workshop` folder.
+2.  Open a terminal and run `docker ps`. You will see `kafka0` as a container.
+3.  Access the `kafka0` container's shell. In your Docker management interface, right-click on the container and select 'Exec' --> type in `/bin/bash`.
+4.  Alternatively, run the following from the command line: `docker exec -it kafka0 /bin/bash`.
+5.  Once inside the `kafka0` container, create a topic with the following command:
+    ```bash
+    kafka-topics --create --bootstrap-server localhost:9092 --topic user-events --partitions 3 --replication-factor 1
+    ```
+6.  Now, go to your Kafka UI (http://localhost:8080/ui/clusters/local/all-topics?perPage=25). You should now see the `user-events` topic.
+7.  **Producer Service (producer-service):**
+    * Create the producer container by running the following commands under the module (`producer-service`):
+        * i) In a terminal run: `mvn clean package`
+        * ii) Once done, execute `docker build -t producer-service .`. This will build the Docker container for the producer service.
+        * iii) Once done, execute `docker-compose up -d producer-service`.
+8.  Run `docker ps`, you should see `kafka-workshop-producer-service-1`.
+9.  The next step is to produce a message.
+    * i) From the `producer-service` directory, copy the content of the `data/sample-data-login` file (specifically, 'producer-service set 1').
+    * ii) Open a command line (gitbash) terminal and paste the data. Alternatively, under Postman, import the collection into Postman.
+10. **Consumer Service (consumer-service):**
+    * Create the consumer container by running the following commands under the module (`consumer-service`):
+        * i) In a terminal run: `mvn clean package -DskipTests` (This packages our Spring Boot project into a deployable jar).
+        * ii) Once done, execute `docker build -t consumer-service .`. This will build the Docker container for the consumer service.
+        * iii) Once done, execute `docker-compose up -d consumer-service`. This launches the container and `consumer-service` in detach mode.
+11. Go to your `consumer-service` output log and note that the messages from the topic have been consumed.
+12. Let’s say we are only interested in events that are triggered during login. We want to send those to a different topic so that we can build dashboards on how many users logged in during a specific time period.
+13. This is where Kafka Streams come in. We can aggregate a different set of events into their own classification.
+14. **Streams Service (streams-service):**
+    * Create the streams container by running the following commands under the module (`streams-service`):
+        * i) In a terminal run: `mvn clean package -DskipTests`
+        * ii) Once done, execute `docker build -t streams-service .`. This will build the Docker container for the producer service.
+        * iii) Once done, execute `docker-compose up -d streams-service`.
+15. Go to the `streams-service` output log. You notice messages are now being consumed from the topic: `user-events` and directed to `login-events`.
+16. To view this in action, go to: http://localhost:8080/
+17. Record the message count of `login-events` & `user-events`.
+18. Produce a message from `sample-data-login` (e.g., `producer-service set 16`).
+19. You will notice that both the message count from `login-events` & `user-events` increased.
+20. Produce a message from `sample-data-logout` (e.g., `producer-service set 4`).
+21. You will notice that only the message count from `user-events` increased.
 
-https://docs.kafka-ui.provectus.io/configuration/configuration-file
-https://env.simplestep.ca/
-https://github.com/provectus/kafka-ui/blob/master/documentation/compose/kafka-ui.yaml
+**Recap:**
+
+* **Kafka Setup:**
+    * A Kafka broker is running in Docker.
+    * A `user-events` topic is created.
+* **Producer Service:**
+    * A Docker container sends messages to the `user-events` topic.
+* **Consumer Service:**
+    * A Docker container consumes and logs messages from the `user-events` topic.
+* **Kafka Streams Service:**
+    * A Docker container using Kafka Streams filters `user-events` for login events.
+    * Login events are published to a new `login-events` topic.
+* **Verification:**
+    * Kafka UI shows both topics.
+    * Producing login events increments counts on both topics.
+    * Producing logout events only increments the `user-events` topic.
 
 
 
 
-Steps
-1. Open terminal and run docker ps, you will see kafka0 as a container
-2. Exec into the pod. In your services right-click on the container and click 'Exec' --> type in /bin/bash
-3. Once in let's create a topic with the following command:
-4. kafka-topics --create --bootstrap-server localhost:9092 --topic user-events --partitions 3 --replication-factor 2
-5. You will notice that we cannot create the topic as replica set is 1, we can add a second broker kafka1 or set the replica set to 1
-6. run 'kafka-topics --create --bootstrap-server localhost:9092 --topic user-events --partitions 3 --replication-factor 1'
-7. Now go to our kafka-ui, you should see the topic now
-8. Next step is to produce a message. 
-9. From producer-service --> copy the content data/sample-data  'producer-service set 1'
-10. Open a command line / terminal and paste the data
-11. Exec into the ksqlDB CLI pod. In your services right-click on the container and click 'Exec' --> type in /bin/bash
-12. Type: ksql http://ksqldb-server:8088
-13. Create the producer container running the below:
-    14. mvm clean package
-    15. Run: 'docker build -t producer-service .' to build the docker image
-    16. Run producer-service from docker-compose
-17. Goto docker-compose.yml and run 
-18. Goto ksqldb-script and copy & paste the following:
-    14. Create a stream from the Kafka topic, defining the schema. --> This created our streams
-    15. Create a new stream that filters events. --> This filters our stream for certain events
-13. Create the consumer container running the below:
-    14. mvn clean package -DskipTests
-    15. Run: 'docker build -t consumer-service .' to build the docker image
-    16. Run consumer-service from docker-compose
+**Trouble shooting**
+* Fatal error compiling: error: release version 17 not supported --> Ensure your JAVA_HOME is set to 17
 
-13. Create the streams container running the below:
-    14. mvn clean package -DskipTests
-    15. Run: 'docker build -t streams-service .' to build the docker image
-    16. Run streams-service from docker-compose
-
-
-
-
-Trouble shooting
-Fatal error compiling: error: release version 17 not supported --> Ensure your JAVA_HOME is set to 17
+**References**
+* https://docs.kafka-ui.provectus.io/configuration/configuration-file
+* https://env.simplestep.ca/
+* https://github.com/provectus/kafka-ui/blob/master/documentation/compose/kafka-ui.yaml
