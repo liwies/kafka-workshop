@@ -1,7 +1,7 @@
 # kafka-workshop
 Kafka, Spring Boot and the Art of Stream Processing
 
-1.  **Prerequisite:** Run `docker-compose up kafka-ui` from a terminal within the `kafka-workshop` folder.
+1.  **Prerequisite:** Run `docker-compose up kafka-ui -d` from a terminal within the `kafka-workshop` folder.
 2.  Open a terminal and run `docker ps`. You will see `kafka0` as a container.
 3.  Access the `kafka0` container's shell. In your Docker management interface, right-click on the container and select 'Exec' --> type in `/bin/bash`.
 4.  Alternatively, run the following from the command line: `docker exec -it kafka0 /bin/bash`.
@@ -56,9 +56,6 @@ Kafka, Spring Boot and the Art of Stream Processing
     * Kafka UI shows both topics.
     * Producing login events increments counts on both topics.
     * Producing logout events only increments the `user-events` topic.
-
-
-
 
 **Trouble shooting**
 * Fatal error compiling: error: release version 17 not supported --> Ensure your JAVA_HOME is set to 17
