@@ -15,6 +15,7 @@ Kafka, Spring Boot and the Art of Stream Processing
         * i) In a terminal run: `mvn clean package`
         * ii) Once done, execute `docker build -t producer-service .`. This will build the Docker container for the producer service.
         * iii) Once done, execute `docker-compose up -d producer-service`.
+        * iv) Look at the ui, there should be one message in the Topic user-ebents under "Number of messages"
 8.  Run `docker ps`, you should see `kafka-workshop-producer-service-1`.
 9.  The next step is to produce a message.
     * i) From the `producer-service` directory, copy the content of the `data/sample-data-login` file (specifically, 'producer-service set 1').
@@ -25,6 +26,7 @@ Kafka, Spring Boot and the Art of Stream Processing
         * ii) Once done, execute `docker build -t consumer-service .`. This will build the Docker container for the consumer service.
         * iii) Once done, execute `docker-compose up -d consumer-service`. This launches the container and `consumer-service` in detach mode.
 11. Go to your `consumer-service` output log and note that the messages from the topic have been consumed.
+        * i) Publish a few more messages from sample-login-data
 12. Let’s say we are only interested in events that are triggered during login. We want to send those to a different topic so that we can build dashboards on how many users logged in during a specific time period.
 13. This is where Kafka Streams come in. We can aggregate a different set of events into their own classification.
 14. **Streams Service (streams-service):**
