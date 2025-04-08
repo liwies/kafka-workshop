@@ -1,0 +1,16 @@
+spring:
+  kafka:
+    streams:
+      bootstrap-servers: kafka0:9092
+      application-id: streams-service
+    topic:
+      name: user-events
+      filtered-topic: login-events
+  application:
+    name: streams-service
+
+server:
+  port: 8086
+logging:
+  level:
+    org.springframework.kafka: DEBUG

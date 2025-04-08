@@ -1,0 +1,10 @@
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: kafka0:9092
+      auto-offset-reset: earliest
+      group-id: consumer-service-group
+    topic:
+      name: user-events
+server:
+  port: 8085

@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "c005d393-7d82-4499-aeaa-8aa8629b6869",
+		"name": "kafka-workshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30569586"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8084/user-events?eventType=login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"554433\", \"firstName\": \"John\", \"lastName\": \"Doe\", \"age\": 36}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/user-events?eventType=login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"user-events"
+					],
+					"query": [
+						{
+							"key": "eventType",
+							"value": "login"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

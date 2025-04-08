@@ -1,0 +1,8 @@
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: kafka0:9092
+    topic:
+      name: user-events
+server:
+  port: 8084
