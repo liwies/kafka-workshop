@@ -113,7 +113,8 @@ This section outlines how to build and run the producer, consumer, and streams s
 2.  **Fatal error compiling, release version 17 not supported :** Ensure your JAVA_HOME is set to 17
 3.  **Port already bind exception :** For the service in question change the port number in application.yml, or stop the service using the specific port
 4.  **kafka0: bash: /tmp/update_run.sh: Permission denied :**  run "chmod 755 ./scripts/update_run.sh"
-
+5.  **When running Windows and experiencing problems with the update_run.sh script in kafka0 :** Verify that the line separator for update_run.sh is set to LF (Unix and macOS) 
+ 
 ## References
 
 * https://docs.kafka-ui.provectus.io/configuration/configuration-file
