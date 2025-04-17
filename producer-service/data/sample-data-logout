@@ -1,14 +1,14 @@
-producer-service set 1:
+# producer-service set 1:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "654321", "firstName": "Zara", "lastName": "Khan", "age": 88}' "http://localhost:8084/user-events?eventType=logout"
 
-producer-service set 2:
+# producer-service set 2:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "456789", "firstName": "Omar", "lastName": "Patel", "age": 34}' "http://localhost:8084/user-events?eventType=logout"
 
-producer-service set 3:
+# producer-service set 3:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "332211", "firstName": "Lena", "lastName": "Garcia", "age": 22}' "http://localhost:8084/user-events?eventType=logout"
 
-producer-service set 4:
+# producer-service set 4:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "665544", "firstName": "Hugo", "lastName": "Rodriguez", "age": 43}' "http://localhost:8084/user-events?eventType=logout"
 
-producer-service set 5:
+# producer-service set 5:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "998877", "firstName": "Aisha", "lastName": "Nguyen", "age": 60}' "http://localhost:8084/user-events?eventType=logout"

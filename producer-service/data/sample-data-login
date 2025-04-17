@@ -1,59 +1,59 @@
-producer-service set 1:
+# producer-service set 1:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "123456", "firstName": "Alice", "lastName": "Smith", "age": 25}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 2:
+# producer-service set 2:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "987654", "firstName": "Bob", "lastName": "Johnson", "age": 42}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 3:
+# producer-service set 3:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "112233", "firstName": "Charlie", "lastName": "Williams", "age": 31}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 4:
+# producer-service set 4:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "445566", "firstName": "David", "lastName": "Brown", "age": 55}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 5:
+# producer-service set 5:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "778899", "firstName": "Eve", "lastName": "Davis", "age": 29}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 6:
+# producer-service set 6:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "223344", "firstName": "Frank", "lastName": "Miller", "age": 38}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 7:
+# producer-service set 7:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "667788", "firstName": "Grace", "lastName": "Wilson", "age": 47}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 8:
+# producer-service set 8:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "334455", "firstName": "Henry", "lastName": "Moore", "age": 22}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 9:
+# producer-service set 9:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "889900", "firstName": "Ivy", "lastName": "Taylor", "age": 60}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 10:
+# producer-service set 10:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "556677", "firstName": "Jack", "lastName": "Anderson", "age": 33}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 11:
+# producer-service set 11:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "990011", "firstName": "Katie", "lastName": "Thomas", "age": 27}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 12:
+# producer-service set 12:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "112244", "firstName": "Liam", "lastName": "Jackson", "age": 49}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 13:
+# producer-service set 13:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "445577", "firstName": "Mia", "lastName": "White", "age": 36}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 14:
+# producer-service set 14:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "778800", "firstName": "Noah", "lastName": "Harris", "age": 52}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 15:
+# producer-service set 15:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "223355", "firstName": "Olivia", "lastName": "Martin", "age": 24}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 16:
+# producer-service set 16:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "667711", "firstName": "Peter", "lastName": "Thompson", "age": 40}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 17:
+# producer-service set 17:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "334466", "firstName": "Quinn", "lastName": "Garcia", "age": 30}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 18:
+# producer-service set 18:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "889922", "firstName": "Riley", "lastName": "Martinez", "age": 58}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 19:
+# producer-service set 19:
 curl -X POST -H "Content-Type: application/json" -d '{"id": "556688", "firstName": "Sophia", "lastName": "Robinson", "age": 28}' "http://localhost:8084/user-events?eventType=login"
 
-producer-service set 20:
-curl -X POST -H "Content-Type: application/json" -d '{"id": "990033", "firstName": "T
+# producer-service set 20:
+url -X POST -H "Content-Type: application/json" -d '{"id": "556688", "firstName": "John", "lastName": "Snow", "age": 32}' "http://localhost:8084/user-events?eventType=login"
